@@ -1661,3 +1661,145 @@
 | `create_date` | datetime |  |  |  | NO |
 | `modify_date` | datetime |  |  |  | NO |
 
+
+## Estructura Base de Datos SQL – Plataforma Reflex
+
+### Tabla: T_Linea_comercial
+| Campo  | Tipo      | Longitud | Precisión | Escala | Permite NULL |
+|--------|-----------|----------|-----------|--------|--------------|
+| Value  | int       |          | 10        | 0      | NO           |
+| Label  | nvarchar  | 255      |           |        | NO           |
+
+### Tabla: T_Tipo
+| Campo  | Tipo      | Longitud | Precisión | Escala | Permite NULL |
+|--------|-----------|----------|-----------|--------|--------------|
+| Value  | int       |          | 10        | 0      | NO           |
+| Label  | nvarchar  | 255      |           |        | NO           |
+
+### Tabla: crce7_departmentinformation
+| Campo                         | Tipo      | Longitud | Permite NULL |
+|-------------------------------|-----------|----------|--------------|
+| crce7_continent               | nvarchar  | 255      | YES          |
+| crce7_continentnumber         | nvarchar  | 255      | YES          |
+| crce7_country1                | nvarchar  | 255      | YES          |
+| crce7_country2                | nvarchar  | 255      | YES          |
+| crce7_countrynumber           | nvarchar  | 255      | YES          |
+| crce7_departmentinformationid | nvarchar  | 255      | YES          |
+| crce7_departmentname          | nvarchar  | 255      | YES          |
+| crce7_fullname                | nvarchar  | 255      | YES          |
+| crce7_id                      | nvarchar  | 255      | YES          |
+| crce7_municipalitycode        | nvarchar  | 255      | YES          |
+| crce7_municipalityname        | nvarchar  | 255      | YES          |
+| crce7_name                    | nvarchar  | 255      | YES          |
+| crce7_province                | nvarchar  | 255      | YES          |
+| createdby                     | nvarchar  | 255      | YES          |
+| createdbyname                 | nvarchar  | 255      | YES          |
+| createdbyyominame             | nvarchar  | 255      | YES          |
+| createdon                     | nvarchar  | 255      | YES          |
+| createdonbehalfby             | nvarchar  | 255      | YES          |
+| createdonbehalfbyname         | nvarchar  | 255      | YES          |
+| createdonbehalfbyyominame     | nvarchar  | 255      | YES          |
+| importsequencenumber          | nvarchar  | 255      | YES          |
+| modifiedby                    | nvarchar  | 255      | YES          |
+| modifiedbyname                | nvarchar  | 255      | YES          |
+| modifiedbyyominame            | nvarchar  | 255      | YES          |
+| modifiedon                    | nvarchar  | 255      | YES          |
+| modifiedonbehalfby            | nvarchar  | 255      | YES          |
+| modifiedonbehalfbyname        | nvarchar  | 255      | YES          |
+| modifiedonbehalfbyyominame    | nvarchar  | 255      | YES          |
+| overriddencreatedon           | nvarchar  | 255      | YES          |
+| ownerid                       | nvarchar  | 255      | YES          |
+| owneridname                   | nvarchar  | 255      | YES          |
+| owneridtype                   | nvarchar  | 255      | YES          |
+| owneridyominame               | nvarchar  | 255      | YES          |
+| owningbusinessunit            | nvarchar  | 255      | YES          |
+| owningbusinessunitname        | nvarchar  | 255      | YES          |
+| owningteam                    | nvarchar  | 255      | YES          |
+| owninguser                    | nvarchar  | 255      | YES          |
+| statecode                     | nvarchar  | 255      | YES          |
+| statuscode                    | nvarchar  | 255      | YES          |
+| timezoneruleversionnumber     | nvarchar  | 255      | YES          |
+| utcconversiontimezonecode     | nvarchar  | 255      | YES          |
+| versionnumber                 | nvarchar  | 255      | YES          |
+
+### Tabla: crce7_nuevatabla2
+| Campo                  | Tipo      | Longitud | Permite NULL |
+|------------------------|-----------|----------|--------------|
+| crce7_compra           | nvarchar  | 255      | YES          |
+| crce7_compraname       | nvarchar  | 255      | YES          |
+| crce7_fechadecompra    | nvarchar  | 255      | YES          |
+| crce7_fecharequerida   | nvarchar  | 255      | YES          |
+| crce7_no               | nvarchar  | 255      | YES          |
+| crce7_nuevatabla2id    | nvarchar  | 255      | YES          |
+| crce7_op               | nvarchar  | 255      | YES          |
+| crce7_opname           | nvarchar  | 255      | YES          |
+| crce7_orden            | nvarchar  | 255      | YES          |
+| createdby              | nvarchar  | 255      | YES          |
+| createdbyname          | nvarchar  | 255      | YES          |
+| createdbyyominame      | nvarchar  | 255      | YES          |
+| createdon              | nvarchar  | 255      | YES          |
+| createdonbehalfby      | nvarchar  | 255      | YES          |
+| createdonbehalfbyname  | nvarchar  | 255      | YES          |
+| createdonbehalfbyyominame | nvarchar  | 255   | YES          |
+| importsequencenumber   | nvarchar  | 255      | YES          |
+| modifiedby             | nvarchar  | 255      | YES          |
+| modifiedbyname         | nvarchar  | 255      | YES          |
+| modifiedbyyominame     | nvarchar  | 255      | YES          |
+| modifiedon             | nvarchar  | 255      | YES          |
+| modifiedonbehalfby     | nvarchar  | 255      | YES          |
+| modifiedonbehalfbyname | nvarchar  | 255      | YES          |
+| modifiedonbehalfbyyominame | nvarchar  | 255   | YES          |
+| overriddencreatedon    | nvarchar  | 255      | YES          |
+| ownerid                | nvarchar  | 255      | YES          |
+| owneridname            | nvarchar  | 255      | YES          |
+| owneridtype            | nvarchar  | 255      | YES          |
+| owneridyominame        | nvarchar  | 255      | YES          |
+| owningbusinessunit     | nvarchar  | 255      | YES          |
+| owningbusinessunitname | nvarchar  | 255      | YES          |
+| owningteam             | nvarchar  | 255      | YES          |
+| owninguser             | nvarchar  | 255      | YES          |
+| statecode              | nvarchar  | 255      | YES          |
+| statuscode             | nvarchar  | 255      | YES          |
+| timezoneruleversionnumber | nvarchar  | 255   | YES          |
+| utcconversiontimezonecode | nvarchar  | 255   | YES          |
+| versionnumber          | nvarchar  | 255      | YES          |
+
+### Tabla: crce7_nuevatabla3
+| Campo                | Tipo      | Longitud | Permite NULL |
+|----------------------|-----------|----------|--------------|
+| crce7_id_lc          | nvarchar  | 255      | YES          |
+| crce7_lineacomercial | nvarchar  | 255      | YES          |
+| crce7_nuevatabla3id  | nvarchar  | 255      | YES          |
+| crce7_t_productos    | nvarchar  | 255      | YES          |
+| crce7_t_productosname| nvarchar  | 255      | YES          |
+| createdby            | nvarchar  | 255      | YES          |
+| createdbyname        | nvarchar  | 255      | YES          |
+| createdbyyominame    | nvarchar  | 255      | YES          |
+| createdon            | nvarchar  | 255      | YES          |
+| createdonbehalfby    | nvarchar  | 255      | YES          |
+| createdonbehalfbyname| nvarchar  | 255      | YES          |
+| createdonbehalfbyyominame | nvarchar  | 255  | YES          |
+| importsequencenumber | nvarchar  | 255      | YES          |
+| modifiedby           | nvarchar  | 255      | YES          |
+| modifiedbyname       | nvarchar  | 255      | YES          |
+| modifiedbyyominame   | nvarchar  | 255      | YES          |
+| modifiedon           | nvarchar  | 255      | YES          |
+| modifiedonbehalfby   | nvarchar  | 255      | YES          |
+| modifiedonbehalfbyname | nvarchar | 255      | YES          |
+| modifiedonbehalfbyyominame | nvarchar | 255  | YES          |
+| overriddencreatedon  | nvarchar  | 255      | YES          |
+| ownerid              | nvarchar  | 255      | YES          |
+| owneridname          | nvarchar  | 255      | YES          |
+| owneridtype          | nvarchar  | 255      | YES          |
+| owneridyominame      | nvarchar  | 255      | YES          |
+| owningbusinessunit   | nvarchar  | 255      | YES          |
+| owningbusinessunitname | nvarchar | 255     | YES          |
+| owningteam           | nvarchar  | 255      | YES          |
+| owninguser           | nvarchar  | 255      | YES          |
+| statecode            | nvarchar  | 255      | YES          |
+| statuscode           | nvarchar  | 255      | YES          |
+| timezoneruleversionnumber | nvarchar | 255   | YES          |
+| utcconversiontimezonecode | nvarchar | 255   | YES          |
+| versionnumber        | nvarchar  | 255      | YES          |
+
+<!-- El resto de las tablas siguen la misma estructura que las anteriores, listando cada campo, tipo, longitud y si permite NULL. -->

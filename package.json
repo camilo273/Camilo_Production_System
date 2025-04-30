@@ -1,0 +1,19 @@
+{
+    "name": "camilo-production-system",
+    "version": "1.0.0",
+    "description": "Gestor empresarial full stack con React, Node.js y SQL Server",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently -n FRONTEND,BACKEND -c green,cyan \"npm start --prefix client\" \"npm start --prefix server\"",
+        "start:frontend": "npm start --prefix client",
+        "start:backend": "nodemon server/index.js",
+        "dev:backend": "nodemon server/index.js",
+        "build": "npm run build --prefix client",
+        "clean": "rm -rf client/build",
+        "deploy": "npm run build && cp -r client/build server/public"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "nodemon": "^3.1.10"
+    }
+}

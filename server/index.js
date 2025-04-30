@@ -8,6 +8,7 @@ const lineasProductivasRoutes = require('./routes/lineasProductivas');
 const { loadLineasProductivas } = require('./cache/lineasProductivasCache');
 const lineasComercialesRoutes = require('./routes/lineasComerciales');
 const { loadLineasComerciales } = require('./cache/lineasComercialesCache');
+const path = require('path');
 
 
 // Si luego creas rutas como ventas, cotizaciones, etc., las importamos igual aquí
@@ -21,6 +22,8 @@ const app = express();
 // 🔵 Middlewares
 app.use(cors());               // Permitir llamadas de otros orígenes (como localhost:3000)
 app.use(express.json());        // Parsear JSON automáticamente
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 🔵 Definición de rutas
 app.use('/api/products', productRoutes);
@@ -38,6 +41,15 @@ app.get('/', (req, res) => {
 app.use((err, req, res, next) => {
   console.error('❌ Error no manejado:', err.stack);
   res.status(500).send('Error interno del servidor');
+});
+
+
+// 🔵 En producción, servir el index.html para cualquier ruta que no sea API
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return next(); // no atrapar rutas de API
+  }
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // 🔵 Levantar el servidor

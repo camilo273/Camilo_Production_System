@@ -116,6 +116,7 @@ exports.saveProduct = (req, res) => {
 
 // Obtener productos paginados con búsqueda y filtro de línea productiva
 exports.getPaginatedProducts = async (req, res) => {
+  const { poolConnect, sql } = require('../config/db');
   const pool = await poolConnect;
 
   const page = parseInt(req.query.page) || 1;

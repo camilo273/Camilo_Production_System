@@ -1,1 +1,0 @@
-ALTER TABLE crce7_t_productos ALTER COLUMN crce7_descripcion NVARCHAR(1000) NULL;

@@ -1,5 +1,3 @@
-
-
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 export function useProductsInfinite({ search = '', linea = '', limit = 50 }) {
@@ -33,15 +31,23 @@ export function useProductsInfinite({ search = '', linea = '', limit = 50 }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `/api/products/paginated?search=${encodeURIComponent(search)}&linea=${encodeURIComponent(
-        linea
-      )}&page=${page}&limit=${limit}`
-    )
-      .then((res) => res.json())
+    fetch('/api/products/paginated', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ search, linea, page, limit })
+    })
+      .then(async (res) => {
+        const contentType = res.headers.get('content-type');
+        if (!res.ok || !contentType || !contentType.includes('application/json')) {
+          const text = await res.text();
+          throw new Error(`Respuesta inesperada del servidor: ${text}`);
+        }
+        return res.json();
+      })
       .then((data) => {
-        setProducts((prev) => [...prev, ...data.data]);
-        setHasMore(data.data.length === limit);
+        const productos = Array.isArray(data) ? data : data.data;
+        setProducts((prev) => [...prev, ...productos]);
+        setHasMore(productos?.length === limit);
         setLoading(false);
       })
       .catch((error) => {

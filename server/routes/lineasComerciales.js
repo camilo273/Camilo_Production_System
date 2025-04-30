@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getCachedLineasComerciales } = require('../cache/lineasComercialesCache');
+const { getLineasComerciales } = require('../cache/lineasComercialesCache');
 
 router.get('/', (req, res) => {
   try {
-    const data = getCachedLineasComerciales();
+    const data = getLineasComerciales();
     res.json(data);
   } catch (error) {
     console.error('❌ Error al obtener líneas comerciales desde caché:', error);
