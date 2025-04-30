@@ -1,0 +1,105 @@
+
+# Manual Plataforma Reflex
+
+---
+
+### 1. Stock Real
+
+Representa la cantidad física de productos que hay actualmente en la empresa, sin considerar si están comprometidos para algo.
+
+- El valor inicial del Stock Real **corresponde al último reporte de inventario realizado** para ese producto.
+- Si **nunca se ha realizado un reporte de inventario**, entonces **no es posible calcular** el inventario real.
+
+#### Aumentos:
+- El Stock Real se **incrementa** con los productos reportados como producidos en los reportes de producción **que aún no han sido contabilizados en inventario** (`INV` vacío).
+- También **aumenta** cuando se registra la **recepción de mercancía** en la tabla de productos de compra, usando el campo `recibido` siempre que `INV` esté vacío.
+
+#### Disminuciones:
+- Se reduce cuando un producto es **empacado y/o despachado** y el campo `INV` está vacío.
+- Se reduce con la **consumo de insumos** registrados en reportes de producción si `INV` está vacío.
+
+#### Consolidación:
+- Al hacer un nuevo reporte de inventario, todos los registros de producción, despacho y recepción con `INV` vacío pasan a `INV = 'X'`.
+
+---
+
+### 2. Stock Producción
+
+Representa la **materia prima disponible para producción**, considerando insumos ya comprometidos.
+
+- Calculado como:  
+  **Stock real de cada insumo** – **reservas por órdenes de producción no finalizadas**
+
+- Se actualiza automáticamente al generar una nueva orden de producción con insumos requeridos.
+
+---
+
+### 3. Stock Ventas
+
+(Pendiente de definir — aquí se colocará la lógica de stock disponible para ventas después de producción y compromisos).
+
+---
+
+### 🧾 Gestión de Productos
+
+- Los productos se crean/actualizan con su tipo, unidad de medida, línea productiva, categoría, etc.
+- Se define su **Tipo**, que determina si es una **Materia Prima** o **Producto**, y si se **compra** o **fabrica**.
+- Cada producto puede tener una **lista de insumos**, clasificados como:
+  - Insumo Fijo
+  - Insumo Variable
+  - Artículo
+  - Empaque
+
+---
+
+### 🏭 Creación de Orden de Producción
+
+- Al generar una orden de producción:
+  - Se usan automáticamente los insumos definidos con sus rendimientos
+  - Se calcula cuánto se necesita de cada insumo (según tipo: fijo o variable)
+- Se valida si hay stock suficiente
+- Se actualiza el Stock Producción al reservar insumos
+
+---
+
+### 📝 Reporte de Producción
+
+- Indica cuántas unidades fueron realmente producidas y qué insumos se consumieron
+- Puede haber reportes parciales
+- Si `INV` está vacío:
+  - El producto final aún no ha sido inventariado
+  - Los insumos utilizados se descuentan del Stock Real
+
+---
+
+### 🚚 Orden de Despacho
+
+- Se genera a partir de una venta
+- Selecciona productos a despachar
+- Indica fecha, dirección, cliente, estado
+- Relaciona productos y cantidades a despachar
+
+---
+
+### 📦 Preparación de Insumos para Despacho
+
+- En el proceso de creación de una orden de despacho:
+  - Se agregan artículos y empaques
+  - Ej: tornillería, cajas
+  - Se descuentan del Stock Real si el campo `INV` está vacío
+- Al indicar cliente, fecha, productos e insumos:
+  - Se genera formalmente la orden de despacho
+
+---
+
+### 💰 Cálculo de Costos Totales de Producción
+
+- Además de insumos, se registran costos de:
+  - Mano de obra directa
+  - Costos indirectos (energía, mantenimiento)
+  - Empaque y logística interna
+  - Costos administrativos proporcionales
+- Usados para calcular rentabilidad y definir precios
+
+---
+
