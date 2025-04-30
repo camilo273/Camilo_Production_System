@@ -1,0 +1,1 @@
+// React component for marking purchases received (updates Recibido)

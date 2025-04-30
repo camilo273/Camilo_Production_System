@@ -1,0 +1,12 @@
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN createdbyname NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN createdbyyominame NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN createdonbehalfbyname NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN createdonbehalfbyyominame NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN modifiedbyname NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN modifiedbyyominame NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN modifiedonbehalfbyname NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN modifiedonbehalfbyyominame NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN owneridname NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN owneridtype NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN owneridyominame NVARCHAR(255) NULL;
+ALTER TABLE crce7_t_cliente_cont ALTER COLUMN owningbusinessunitname NVARCHAR(255) NULL;

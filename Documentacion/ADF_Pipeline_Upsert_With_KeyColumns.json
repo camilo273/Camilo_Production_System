@@ -1,0 +1,63 @@
+{
+  "name": "Copy_All_Dataverse_To_SQL",
+  "properties": {
+    "activities": [
+      {
+        "name": "ForEach1",
+        "type": "ForEach",
+        "dependsOn": [],
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.tableList",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "name": "Copy_Table_To_SQL",
+              "type": "Copy",
+              "dependsOn": [],
+              "typeProperties": {
+                "source": {
+                  "type": "CommonDataServiceForAppsSource"
+                },
+                "sink": {
+                  "type": "SqlSink",
+                  "writeBehavior": "upsert",
+                  "sqlWriterUseTableLock": false,
+                  "keyColumns": {
+                    "value": "@pipeline().parameters.KeyColumMapping[item().name]",
+                    "type": "Expression"
+                  },
+                  "disableMetricsCollection": false
+                },
+                "enableStaging": false
+              },
+              "inputs": [
+                {
+                  "referenceName": "CDS_Generic",
+                  "type": "DatasetReference"
+                }
+              ],
+              "outputs": [
+                {
+                  "referenceName": "SQL_Generic",
+                  "type": "DatasetReference"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "tableList": {
+        "type": "Array"
+      },
+      "KeyColumMapping": {
+        "type": "Object"
+      }
+    },
+    "annotations": [],
+    "runConcurrently": true
+  }
+}
