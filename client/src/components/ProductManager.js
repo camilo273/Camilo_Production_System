@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Button from './Button';
+import Button from './Button.jsx';
 import ProductForm from './ProductForm';
 import { useProductsInfinite } from '../hooks/useProductsInfinite';
+import ProductCard from './ProductCard';
 
 function ProductManager() {
   const [search, setSearch] = useState('');
@@ -78,27 +79,14 @@ function ProductManager() {
         {products.map((product, index) => {
           const isLast = index === products.length - 1;
           return (
-            <div
+            <ProductCard
               key={product.crce7_t_productosid || index}
-              ref={isLast ? lastProductRef : null}
-              onClick={() => setSelectedProductId(product.crce7_t_productosid)}
-              style={{
-                border: selectedProductId === product.crce7_t_productosid ? '2px solid #007bff' : '1px solid #ddd',
-                borderRadius: '12px',
-                padding: '1rem',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                cursor: 'pointer',
-                backgroundColor: selectedProductId === product.crce7_t_productosid ? '#f0f8ff' : 'white'
-              }}
-            >
-              <h3 style={{ margin: '0.5rem 0 0.25rem' }}>{product.crce7_nombre_}</h3>
-              <p style={{ margin: '0.25rem 0', color: '#888' }}>
-                Código: <strong>{product.crce7_codigo}</strong>
-              </p>
-              <p style={{ fontWeight: 'bold', fontSize: '1rem', marginTop: '0.5rem' }}>
-                Precio: ${product.crce7_precio_unitario?.toFixed(2) || 'N/A'}
-              </p>
-            </div>
+              product={product}
+              isSelected={selectedProductId === product.crce7_t_productosid}
+              onSelect={setSelectedProductId}
+              isLast={isLast}
+              lastRef={lastProductRef}
+            />
           );
         })}
       </div>

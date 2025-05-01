@@ -69,7 +69,7 @@ export default function ProductListInfinite() {
                 {product.crce7_nombre_ || 'Sin nombre'}
               </h3>
               <p style={{ margin: '0.5rem 0 0', color: '#666' }}>
-                Código: <strong>{product.crce7_codigo || 'Sin código'}</strong>
+                Códigoo: <strong>{product.crce7_codigo || 'Sin código'}</strong>
               </p>
             </div>
           );
