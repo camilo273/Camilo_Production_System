@@ -134,17 +134,23 @@ exports.getPaginatedProducts = async (req, res) => {
         FROM crce7_t_productos
         WHERE crce7_nombre_ LIKE @search AND crce7_lineaproductiva LIKE @linea;
 
-        SELECT *
-        FROM crce7_t_productos
-        WHERE crce7_nombre_ LIKE @search AND crce7_lineaproductiva LIKE @linea
-        ORDER BY crce7_nombre_
+        SELECT 
+          p.*, 
+          lp.crce7_lineaproductiva AS nombre_linea_productiva,
+          lp.crce7_color AS color_linea_productiva
+        FROM crce7_t_productos p
+        LEFT JOIN crce7_t_lineaproductiva lp
+          ON p.crce7_lineaproductiva = lp.crce7_t_lineaproductivaid
+        WHERE p.crce7_nombre_ LIKE @search AND p.crce7_lineaproductiva LIKE @linea
+        ORDER BY p.crce7_referencia ASC, p.crce7_producto ASC
         OFFSET ${offset} ROWS
         FETCH NEXT ${limit} ROWS ONLY;
       `);
 
     const total = result.recordsets[0][0].total;
     const data = result.recordsets[1];
-
+    console.log('✅ Datos obtenidos de SQL:', data);
+    console.log('🎯 Datos SQL obtenidos:', JSON.stringify(data, null, 2));
     res.json({ total, data });
   } catch (error) {
     console.error('❌ Error al obtener productos paginados:', error);

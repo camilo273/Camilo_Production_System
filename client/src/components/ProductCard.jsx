@@ -17,21 +17,7 @@ function ProductCard({ product, isSelected, onSelect, isLast, lastRef }) {
         position: 'relative'
       }}
     >
-      {product.crce7_lineaproductiva && product.crce7_color && (
-        <div style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          backgroundColor: product.crce7_color,
-          color: 'white',
-          padding: '0.25rem 0.5rem',
-          borderRadius: '8px',
-          fontSize: '0.8rem',
-          fontWeight: 'bold'
-        }}>
-          {product.crce7_lineaproductiva}
-        </div>
-      )}
+      
       <h3 style={{ margin: '0.5rem 0 0.25rem' }}>{product.crce7_nombre_}</h3>
       <p style={{ margin: '0.25rem 0', color: '#888' }}>
         Cód: <strong>{product.crce7_codigo}</strong>
@@ -39,9 +25,29 @@ function ProductCard({ product, isSelected, onSelect, isLast, lastRef }) {
       <p style={{ fontWeight: 'bold', fontSize: '1rem', marginTop: '0.5rem' }}>
         Precio: ${product.crce7_costo?.toFixed(0) || 'N/A'}
       </p>
-      <p style={{ marginTop: '0.25rem', fontSize: '0.9rem', color: '#555' }}>
-        Línea productiva: {product.crce7_lineaproductiva || 'Sin asignar'}
-      </p>
+      {product.crce7_lineaproductiva && (
+        <div
+          style={{
+            backgroundColor: product.color_linea_productiva || '#ccc',
+            color: (() => {
+              const hex = (product.color_linea_productiva || '#ccc').replace('#', '');
+              const r = parseInt(hex.substring(0, 2), 16);
+              const g = parseInt(hex.substring(2, 4), 16);
+              const b = parseInt(hex.substring(4, 6), 16);
+              const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+              return brightness > 160 ? '#000' : '#fff';
+            })(),
+            padding: '0.25rem 0.5rem',
+            borderRadius: '8px',
+            display: 'inline-block',
+            marginTop: '0.5rem',
+            fontSize: '0.85rem',
+            fontWeight: 'medium'
+          }}
+        >
+          {product.nombre_linea_productiva || 'Sin asignar'}
+        </div>
+      )}
     </div>
   );
 }
