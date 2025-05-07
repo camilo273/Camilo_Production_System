@@ -1,47 +1,55 @@
-# 🧭 README Interno – Plataforma Reflex
+# 📦 Plataforma Reflex
 
-Este archivo explica la arquitectura y organización interna del proyecto **Camilo_Production_System**, también conocido como **Plataforma Reflex**.
+**Plataforma Reflex** es un sistema de gestión empresarial desarrollado con una arquitectura full stack moderna basada en React.js, Node.js, SQL Server y almacenamiento en caché con archivos JSON.
 
-## 🏗 Estructura del Proyecto
+## 🧱 Tecnologías usadas
+- Frontend: React.js
+- Backend: Node.js + Express
+- Base de datos: SQL Server
+- Almacenamiento auxiliar: Azure Blob Storage, archivos JSON
+- Herramientas: Power BI, GitHub, VS Code
 
-```
+## 🚀 ¿Cómo iniciar?
+1. Clona el proyecto.
+2. Ejecuta `npm install` en raíz, `client/` y `server/`.
+3. Usa `npm run dev` para iniciar frontend y backend en paralelo.
+
+## 📚 Documentación
+Consulta la carpeta `docs/` o entra a [`docs/README.md`](docs/README.md) para ver todos los manuales técnicos, estructura de datos y APIs disponibles.
+
+## 🗂️ Estructura del Proyecto
+
+```plaintext
 Camilo_Production_System/
-│
-├── client/                  # Aplicación frontend (React.js)
+├── client/
 │   ├── src/
-│   │   ├── components/      # Componentes reutilizables de UI
-│   │   └── hooks/           # Custom hooks para gestión de datos (ej. scroll infinito)
-│   └── public/cache/        # Archivos JSON locales para datos en caché
-│
-├── server/                  # Backend (Node.js + Express + SQL Server)
-│   ├── controllers/         # Lógica de rutas y controladores
-│   ├── routes/              # Definición de endpoints
-│   ├── cache/               # Gestión de caché en archivos JSON
-│   ├── config/              # Conexión a base de datos y variables
-│   └── index.js             # Archivo principal del servidor
-│
-├── docs/                    # Documentación técnica
+│   │   ├── components/
+│   │   │   ├── products/       # Componentes relacionados con productos
+│   │   │   ├── purchases/      # (Futuro) componentes de compras
+│   │   │   ├── suppliers/      # (Futuro) componentes de proveedores
+│   │   │   ├── ui/             # Componentes visuales reutilizables
+│   │   ├── hooks/              # Hooks personalizados como useProductsInfinite
+│   │   ├── services/           # Funciones para llamadas a API
+├── server/
+│   ├── routes/
+│   ├── controllers/
+│   ├── config/                 # Conexión base de datos y utilidades
+│   ├── public/cache/          # Datos precargados en formato JSON
+├── sql/
+│   ├── tables/                 # Scripts SQL para estructura de base de datos
+├── docs/
+│   ├── Manual_Plataforma_Reflex.md
+│   ├── Procesos del Sistema – Plataforma Reflex.md
+│   ├── API y Endpoints.md
+│   ├── Componentes Frontend.md
 │   ├── _Estructura_Base_De_Datos_SQL.md
-│   └── ... (otros archivos técnicos)
-│
-├── .env                     # Variables de entorno (NO versionado)
-├── .gitignore               # Ignora carpetas como node_modules, .env, etc.
-├── package.json             # Scripts para ejecutar todo el sistema
-└── README.md                # Descripción general del proyecto
+│   ├── Guia_Desarrollo_Plataforma_Reflex.md
+│   ├── README Interno – Plataforma Reflex.md (este archivo)
+│   ├── README.md (índice técnico de documentación)
+│   └── Changelog.md
 ```
 
-## 🔌 Conexiones entre capas
-- **Frontend** consume la API del **backend** usando Axios.
-- **Backend** se conecta con una base de datos **SQL Server**.
-- **Caché local** en archivos `.json` sirve para acelerar ciertas cargas de datos (como líneas comerciales y productivas).
+Esta estructura refleja cómo están organizados actualmente los componentes frontend, rutas backend, y la documentación del sistema.
 
-## 🚀 Scripts importantes
-Desde la raíz del proyecto:
-- `npm run dev` → Inicia frontend y backend en paralelo
-- `npm run clean` → Borra build frontend
-- `npm run deploy` → Genera build optimizado y lo copia al servidor
-
----
-
-Este documento se irá actualizando conforme el sistema evolucione.
-
+## ✍️ Autor
+Camilo Becerra — Proyecto 2025

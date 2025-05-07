@@ -1,0 +1,123 @@
+.
+├── .DS_Store
+├── .env
+├── .env.example
+├── .gitignore
+├── client
+│   ├── .DS_Store
+│   ├── build
+│   │   ├── asset-manifest.json
+│   │   ├── cache
+│   │   │   ├── lineascomerciales.json
+│   │   │   └── lineasproductivas.json
+│   │   ├── index.html
+│   │   ├── precache-manifest.e54f5ce6b7477e2b15d9fde1eff49a7a.js
+│   │   ├── service-worker.js
+│   │   └── static
+│   │       └── js
+│   │           ├── 2.0c6f75c4.chunk.js
+│   │           ├── 2.0c6f75c4.chunk.js.LICENSE.txt
+│   │           ├── 2.0c6f75c4.chunk.js.map
+│   │           ├── main.4391c640.chunk.js
+│   │           ├── main.4391c640.chunk.js.map
+│   │           ├── runtime-main.1b39e693.js
+│   │           └── runtime-main.1b39e693.js.map
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── cache
+│   │   │   ├── lineascomerciales.json
+│   │   │   └── lineasproductivas.json
+│   │   └── index.html
+│   └── src
+│       ├── .DS_Store
+│       ├── App.js
+│       ├── components
+│       │   ├── DropdownLinea.js
+│       │   ├── products
+│       │   │   ├── ProductCard.jsx
+│       │   │   ├── ProductForm.jsx
+│       │   │   ├── ProductListInfinite.jsx
+│       │   │   ├── ProductManager.js
+│       │   │   └── ProductSearch.jsx
+│       │   └── ui
+│       │       └── Button.jsx
+│       ├── hooks
+│       │   └── useProductsInfinite.js
+│       └── index.js
+├── docs
+│   ├── _Estructura_Base_De_Datos_SQL.md
+│   ├── .DS_Store
+│   ├── API y Endpoints.md
+│   ├── Changelog.md
+│   ├── Componentes Frontend.md
+│   ├── Guia_Desarrollo_Plataforma_Reflex.md
+│   ├── Manual_Plataforma_Reflex.md
+│   ├── Procesos del Sistema – Plataforma Reflex.md
+│   ├── README Interno – Plataforma Reflex.md
+│   ├── Relaciones Entre Tablas SQL – Plataforma Reflex.md
+│   └── untitled folder
+│       ├── ADF_Pipeline_Upsert_With_KeyColumns.json
+│       ├── FK1.json
+│       ├── FK2.json
+│       ├── Manual_Plataforma_Reflex_Completo.txt
+│       ├── Manual_Plataforma_Reflex_Optimizado.md
+│       ├── PK1.json
+│       └── PK2.json
+├── estructura-proyecto.txt
+├── nodemon.json
+├── package-lock.json
+├── package.json
+├── README.md
+└── server
+    ├── .DS_Store
+    ├── cache
+    │   ├── cacheUtils.js
+    │   ├── dailyCache.js
+    │   ├── lineasComerciales
+    │   ├── lineasComercialesCache.js
+    │   ├── lineasProductivas
+    │   └── lineasProductivasCache.js
+    ├── config
+    │   └── db.js
+    ├── controllers
+    │   ├── lineasComercialesController.js
+    │   ├── lineasProductivasController.js
+    │   ├── productController.js
+    │   └── supplierController.js
+    ├── index.js
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    │   ├── asset-manifest.json
+    │   ├── cache
+    │   │   ├── lineascomerciales.json
+    │   │   └── lineasproductivas.json
+    │   ├── index.html
+    │   ├── precache-manifest.e54f5ce6b7477e2b15d9fde1eff49a7a.js
+    │   ├── service-worker.js
+    │   └── static
+    │       └── js
+    │           ├── 2.0c6f75c4.chunk.js
+    │           ├── 2.0c6f75c4.chunk.js.LICENSE.txt
+    │           ├── 2.0c6f75c4.chunk.js.map
+    │           ├── main.4391c640.chunk.js
+    │           ├── main.4391c640.chunk.js.map
+    │           ├── runtime-main.1b39e693.js
+    │           └── runtime-main.1b39e693.js.map
+    ├── routes
+    │   ├── lineasComerciales.js
+    │   ├── lineasProductivas.js
+    │   ├── products.js
+    │   ├── purchaseRequests.js
+    │   ├── purchases.js
+    │   └── suppliers.js
+    └── sql
+        └── tables
+            ├── products.sql
+            ├── purchase_fulfillment.sql
+            ├── purchase_header.sql
+            ├── purchase_requests.sql
+            └── suppliers.sql
+
+26 directories, 95 files

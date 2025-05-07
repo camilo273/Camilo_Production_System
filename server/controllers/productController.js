@@ -142,7 +142,7 @@ exports.getPaginatedProducts = async (req, res) => {
         LEFT JOIN crce7_t_lineaproductiva lp
           ON p.crce7_lineaproductiva = lp.crce7_t_lineaproductivaid
         WHERE p.crce7_nombre_ LIKE @search AND p.crce7_lineaproductiva LIKE @linea
-        ORDER BY p.crce7_referencia ASC, p.crce7_producto ASC
+        ORDER BY p.crce7_producto ASC, p.crce7_referencia ASC
         OFFSET ${offset} ROWS
         FETCH NEXT ${limit} ROWS ONLY;
       `);

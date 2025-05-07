@@ -1,1 +1,0 @@
-// React component for creating purchase requests to crce7_nuevatabla2

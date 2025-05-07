@@ -1,1 +1,0 @@
-// React component for displaying crce7_t_compr_prod history per product

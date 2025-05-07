@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from './Button.jsx';
-import ProductForm from './ProductForm';
-import { useProductsInfinite } from '../hooks/useProductsInfinite';
-import ProductCard from './ProductCard';
+import Button from '../ui/Button';
+import ProductForm from './ProductForm.jsx';
+import { useProductsInfinite } from '../../hooks/useProductsInfinite.js';
+import ProductCard from './ProductCard.jsx';
 import { FaPlus, FaLink } from 'react-icons/fa';
 
 function ProductManager() {

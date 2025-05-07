@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useProductsInfinite } from '../hooks/useProductsInfinite';
+import { useProductsInfinite } from '../../hooks/useProductsInfinite';
 
 export default function ProductListInfinite() {
   const [search, setSearch] = useState('');

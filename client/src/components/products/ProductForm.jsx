@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import DropdownLinea from './DropdownLinea';
-import Button from './Button';
+import DropdownLinea from '../DropdownLinea';
+import Button from '../ui/Button';
 
 function ProductForm({ mode = 'crear', initialData = {}, onCancel, onSubmit }) {
   const [name, setName] = useState(initialData.name || '');
