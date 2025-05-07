@@ -90,9 +90,9 @@ function ProductForm({ mode = 'crear', initialData = {}, onCancel, onSubmit }) {
         displayField="nombre"
       />
 
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '2rem' }}>
-        <Button onClick={onCancel} type="button">Cancelar</Button>
-        <Button type="submit">{mode === 'editar' ? 'Actualizar' : 'Guardar'}</Button>
+<div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '2rem' }}>
+        <Button label="Cancelar" onClick={onCancel} type="button" variant="secondary" />
+        <Button label={mode === 'editar' ? 'Actualizar' : 'Guardar'} type="submit" variant="primary" />
       </div>
     </form>
   );

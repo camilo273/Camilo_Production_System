@@ -3,6 +3,7 @@ import Button from './Button.jsx';
 import ProductForm from './ProductForm';
 import { useProductsInfinite } from '../hooks/useProductsInfinite';
 import ProductCard from './ProductCard';
+import { FaPlus, FaLink } from 'react-icons/fa';
 
 function ProductManager() {
   const [search, setSearch] = useState('');
@@ -27,16 +28,20 @@ function ProductManager() {
       <h2>Product Manager</h2>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '1rem' }}>
-        <Button onClick={() => setOpenCreateModal(true)}>
-          <span role="img" aria-label="crear">➕</span> Crear Producto
-        </Button>
-        <Button
-          onClick={() => alert('Abrir modal para crear referencia')}
-          disabled={!selectedProductId}
-          title={!selectedProductId ? 'Selecciona un producto para agregar una referencia' : ''}
-        >
-          <span role="img" aria-label="referencia">🔗</span> Agregar Referencia
-        </Button>
+      <Button
+        onClick={() => setOpenCreateModal(true)}
+        icon={<FaPlus />}
+        label="Crear Producto"
+        variant="primary"
+      />
+      <Button
+        onClick={() => alert('Abrir modal para crear referencia')}
+        disabled={!selectedProductId}
+        title={!selectedProductId ? 'Selecciona un producto para agregar una referencia' : ''}
+        icon={<FaLink />}
+        label="Agregar Referencia"
+        variant="secondary"
+      />
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
