@@ -41,3 +41,15 @@ Historial de cambios significativos en la plataforma.
 ✅ Productos eliminados ahora son ocultados del listado mediante `crce7_eliminado IS NULL` en las consultas SQL del backend.
 
 ✅ Documentada la funcionalidad completa en `Componentes Frontend.md` y `Procesos del Sistema – Plataforma Reflex.md`.
+
+✅ Integradas imágenes de productos en el frontend mediante el campo `crce7_imagen_url`.
+
+✅ Se desarrolló un script Node.js que:
+- Lee una carpeta local de imágenes.
+- Extrae el código del archivo.
+- Sube cada imagen a Azure Blob Storage.
+- Guarda la URL pública en el campo `crce7_imagen_url` del producto con `crce7_codigo` correspondiente.
+
+✅ Las imágenes son renderizadas en `ProductCard` solo si existe URL, con estilos visuales consistentes.
+
+✅ Documentación actualizada en `Componentes Frontend.md` y `Procesos del Sistema – Plataforma Reflex.md`.
