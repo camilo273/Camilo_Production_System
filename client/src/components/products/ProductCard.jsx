@@ -17,7 +17,19 @@ function ProductCard({ product, isSelected, onSelect, isLast, lastRef }) {
         position: 'relative'
       }}
     >
-      
+      {product.crce7_imagen_url && (
+        <img
+          src={product.crce7_imagen_url}
+          alt={product.crce7_nombre_ || 'Imagen del producto'}
+          style={{
+            width: '100%',
+            height: '200px',
+            objectFit: 'cover',
+            borderRadius: '8px 8px 0 0',
+            marginBottom: '0.5rem'
+          }}
+        />
+      )}
       <h3 style={{ margin: '0.5rem 0 0.25rem' }}>{product.crce7_nombre_}</h3>
       <p style={{ margin: '0.25rem 0', color: '#888' }}>
         Cód: <strong>{product.crce7_codigo}</strong>

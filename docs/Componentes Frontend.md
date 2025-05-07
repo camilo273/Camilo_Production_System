@@ -15,6 +15,9 @@ Este documento describe los principales componentes de la interfaz en React.
 - Renderiza la tarjeta de un producto individual.
 - Muestra nombre, código, precio y línea productiva.
 - Aplica color dinámico a la línea productiva según `color_linea_productiva`.
+- Si el producto contiene una URL en el campo `crce7_imagen_url`, se renderiza una imagen en la parte superior de la tarjeta.
+- La imagen se muestra con `object-fit: cover`, altura fija de `200px`, y bordes redondeados superiores.
+- Este diseño mejora la visibilidad del producto y genera una presentación uniforme en todo el listado.
 
 ## Mapa de relaciones
 

@@ -58,6 +58,16 @@ Este documento describe los procesos clave del sistema desarrollado para la Plat
 6
 ```
 
+**Asignación automática de imágenes y visualización:**
+
+- Las imágenes de productos se almacenan en Azure Blob Storage dentro del contenedor `imagenes-productos`.
+- Cada imagen se nombra comenzando por el código del producto (ej. `1-1.Nombre del producto.png`) para facilitar su asociación automática.
+- Un script en Node.js recorre una carpeta local de imágenes, extrae el código, y:
+  - Sube la imagen al contenedor.
+  - Guarda la URL pública en el campo `crce7_imagen_url` del producto correspondiente (`crce7_codigo`).
+- En el frontend, el componente `ProductCard` verifica si el producto contiene `crce7_imagen_url` y la muestra encima del nombre del producto.
+- Esto permite mantener las imágenes sincronizadas con la base de datos sin intervención manual desde la interfaz de administración.
+
 **Resumen del flujo técnico:**
 1. El usuario hace clic en “Eliminar producto”.
 2. El sistema consulta si es padre y si tiene referencias activas.
