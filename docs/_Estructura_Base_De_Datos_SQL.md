@@ -1261,7 +1261,71 @@
 | `transactioncurrencyidname` | nvarchar | 255 |  |  | YES |
 | `utcconversiontimezonecode` | int |  | 10 | 0 | YES |
 | `versionnumber` | bigint |  | 19 | 0 | YES |
-| `crce7_t_productosid` | uniqueidentifier |  |  |  | NO |
+
+
+---
+
+### ℹ️ Notas sobre el código y orden de los productos
+
+El sistema genera el campo `crce7_codigo` a partir de la combinación de los campos `crce7_producto` y `crce7_referencia` bajo esta lógica:
+
+- Si `crce7_referencia = 0` → entonces `crce7_codigo = crce7_producto`
+- Si `crce7_referencia > 0` → entonces `crce7_codigo = crce7_producto + '-' + crce7_referencia`
+
+La visualización y ordenación de los productos se realiza:
+
+- Primero por `crce7_producto` en orden ascendente.
+- Luego por `crce7_referencia` en orden ascendente.
+
+Esto asegura que el producto padre siempre aparezca antes que sus referencias.
+
+**Ejemplo de orden esperado:**
+
+```
+1
+1-1
+1-2
+2
+2-1
+4
+5
+5-1
+5-2
+6
+```
+
+---
+
+
+### ℹ️ Notas sobre la lógica de eliminación de productos
+
+La plataforma utiliza un enfoque de eliminación lógica en la tabla `crce7_t_productos`. En lugar de eliminar físicamente los registros de productos, el sistema establece la fecha y hora actuales en el campo `crce7_eliminado` para indicar que un producto ha sido eliminado. Esta estrategia garantiza que:
+
+- Los productos eliminados no aparezcan en listados ni resultados activos.
+- El código de producto (`crce7_codigo`) y el identificador (`crce7_id_producto`) nunca se reutilicen, manteniendo la integridad histórica y evitando duplicados.
+- La lógica de filtrado en consultas debe incluir la condición `WHERE crce7_eliminado IS NULL` para mostrar únicamente productos activos.
+
+Esta lógica está implementada en las consultas del backend y debe respetarse en cualquier nuevo desarrollo o mantenimiento de la plataforma.
+
+### ℹ️ Notas sobre la lógica de ordenamiento de productos
+
+El orden en que se listan los productos en la plataforma sigue la siguiente lógica:
+
+1. Se construye un valor de orden concatenando el campo `crce7_producto` y, si `crce7_referencia` es mayor que cero, se añade `'-'` seguido de `crce7_referencia`.
+2. Este valor compuesto se usa como clave de ordenación al mostrar los productos, asegurando que se visualicen en el orden esperado: primero los productos principales (`1`, `2`, `3`, etc.) y luego sus referencias asociadas (`1-1`, `1-2`, `2-1`, etc.).
+3. La consulta siempre filtra excluyendo productos eliminados, usando la condición `WHERE crce7_eliminado IS NULL`.
+
+Esto garantiza una presentación jerárquica y coherente de los productos, respetando las relaciones de referencia y evitando mostrar productos eliminados.
+
+### ℹ️ Notas sobre la lógica de producto padre
+
+Un producto **padre** en la plataforma se identifica como un producto cuyo campo `crce7_inv` tiene valor `0`. Este producto padre actúa como agrupador de referencias (productos relacionados).
+
+- Un producto padre no puede ser eliminado si aún existen referencias activas (es decir, si existen productos con el mismo `crce7_producto` y `crce7_eliminado IS NULL` y `crce7_referencia > 0`).
+- Cuando la última referencia visible de un producto padre es eliminada (cuando todas las referencias tienen un valor no nulo en `crce7_eliminado`), el producto padre automáticamente recupera su estado de producto activo, cambiando su valor de `crce7_inv` a `1`.
+- Esta lógica garantiza la integridad de las agrupaciones de productos y evita la eliminación accidental de productos que agrupan referencias.
+
+Cualquier desarrollo que afecte productos y referencias debe tener en cuenta esta regla de negocio para asegurar consistencia en el manejo de productos padres y sus referencias.
 
 
 ## 🧩 Tabla: `crce7_t_proovedores`

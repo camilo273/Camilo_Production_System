@@ -88,6 +88,26 @@ Se emplean claves primarias UUID (`UniqueIdentifier`) y claves foráneas con cam
 - Relación con Línea Productiva y Línea Comercial
 - Campos clave: nombre, código, inventariar, stock mínimo, insumo de…
 
+#### Lógica de Eliminación
+
+La plataforma no elimina físicamente los productos de la base de datos. En su lugar, utiliza un sistema de eliminación lógica basado en el campo `crce7_eliminado` (tipo `datetime`). Mientras este campo tenga un valor, el producto será excluido automáticamente de las consultas en frontend y backend.
+
+El proceso sigue estas reglas y pasos:
+
+1. **Identificación del producto**: Se obtiene el `crce7_t_productosid` del producto que se desea eliminar.
+2. **Determinación del tipo de producto**:
+   - Si `crce7_inv = 0` → se considera producto padre.
+   - Si `crce7_referencia = 1` → se considera producto referencia.
+3. **Verificación de referencias activas**: Se cuenta cuántas referencias activas (`crce7_referencia = 1` y `crce7_eliminado IS NULL`) están asociadas al mismo `crce7_producto`.
+   - Si el producto es padre y tiene referencias activas → no se puede eliminar.
+4. **Eliminación lógica**: Si pasa la validación, se actualiza el campo `crce7_eliminado` con `GETDATE()` para marcar la eliminación.
+5. **Actualización del estado padre**:
+   - Si se elimina la última referencia activa, se actualiza el producto padre para dejar de ser “padre” (`crce7_inv = 1`).
+
+Este proceso asegura la integridad de las relaciones y evita inconsistencias.
+
+**Nota importante:** Toda consulta de productos activos debe incluir la condición `WHERE crce7_eliminado IS NULL` para excluir eliminados lógicamente.
+
 ### 4.2 Inventario
 
 - Se actualiza con compras, producción y despachos

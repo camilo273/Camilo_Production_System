@@ -29,3 +29,15 @@ Historial de cambios significativos en la plataforma.
 ✅ Eliminado endpoint paginado en favor de carga progresiva.
 
 *Agregar nuevas entradas al final de este archivo conforme se realicen commits importantes.*
+
+## 2025-05-07
+
+✅ Implementado botón “Eliminar Producto” en el frontend con validaciones de selección y tipo de producto (`crce7_inv = 1`).
+
+✅ Conectado endpoint DELETE `/api/products/:id` con lógica de negocio en `productController.js`.
+
+✅ Lógica de eliminación incluye verificación de referencias activas y actualización de estado padre (`crce7_inv = 1`) si corresponde.
+
+✅ Productos eliminados ahora son ocultados del listado mediante `crce7_eliminado IS NULL` en las consultas SQL del backend.
+
+✅ Documentada la funcionalidad completa en `Componentes Frontend.md` y `Procesos del Sistema – Plataforma Reflex.md`.

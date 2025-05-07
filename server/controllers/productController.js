@@ -102,8 +102,88 @@ exports.updateProduct = (req, res) => {
   res.send(`🧪 updateProduct para ID ${req.params.id}`);
 };
 
-exports.deleteProduct = (req, res) => {
-  res.send(`🧪 deleteProduct para ID ${req.params.id}`);
+exports.deleteProduct = async (req, res) => {
+  const { poolConnect, sql } = require('../config/db');
+  const productoId = req.params.id;
+
+  try {
+    const pool = await poolConnect;
+
+    // 1. Verificar si el producto existe
+    const productoResult = await pool.request()
+      .input('id', sql.UniqueIdentifier, productoId)
+      .query(`
+        SELECT crce7_producto, crce7_inv
+        FROM crce7_t_productos
+        WHERE crce7_t_productosid = @id
+      `);
+
+    const producto = productoResult.recordset[0];
+
+    if (!producto) {
+      return res.status(404).json({ error: '❌ Producto no encontrado.' });
+    }
+
+    const { crce7_producto, crce7_inv } = producto;
+
+    // 2. Si es producto padre, verificar si tiene referencias activas
+    if (crce7_inv === 0) {
+      const referenciasResult = await pool.request()
+        .input('codigo', sql.Int, crce7_producto)
+        .query(`
+          SELECT COUNT(*) AS total
+          FROM crce7_t_productos
+          WHERE crce7_producto = @codigo
+          AND crce7_referencia > 0
+          AND crce7_eliminado IS NULL
+        `);
+
+      const referenciasActivas = referenciasResult.recordset[0].total;
+
+      if (referenciasActivas > 0) {
+        return res.status(400).json({
+          error: '❌ Este producto es un producto padre. Para poder eliminarlo, primero debes eliminar todas sus referencias activas.'
+        });
+      }
+    }
+
+    // 3. Marcar el producto como eliminado
+    await pool.request()
+      .input('id', sql.UniqueIdentifier, productoId)
+      .query(`
+        UPDATE crce7_t_productos
+        SET crce7_eliminado = GETDATE()
+        WHERE crce7_t_productosid = @id
+      `);
+
+    // 4. Si era una referencia, verificar si quedan otras activas. Si no, actualizar el padre (inv = 1)
+    const referenciasRestantes = await pool.request()
+      .input('codigo', sql.Int, crce7_producto)
+      .query(`
+        SELECT COUNT(*) AS total
+        FROM crce7_t_productos
+        WHERE crce7_producto = @codigo
+        AND crce7_referencia > 0
+        AND crce7_eliminado IS NULL
+      `);
+
+    if (referenciasRestantes.recordset[0].total === 0) {
+      await pool.request()
+        .input('codigo', sql.Int, crce7_producto)
+        .query(`
+          UPDATE crce7_t_productos
+          SET crce7_inv = 1
+          WHERE crce7_producto = @codigo
+          AND crce7_referencia = 0
+        `);
+    }
+
+    res.status(200).json({ message: '✅ Producto eliminado correctamente.' });
+
+  } catch (err) {
+    console.error('❌ Error al eliminar producto:', err.message);
+    res.status(500).json({ error: 'Error al intentar eliminar el producto.' });
+  }
 };
 
 exports.prepareNewProduct = (req, res) => {
@@ -132,7 +212,9 @@ exports.getPaginatedProducts = async (req, res) => {
       .query(`
         SELECT COUNT(*) AS total
         FROM crce7_t_productos
-        WHERE crce7_nombre_ LIKE @search AND crce7_lineaproductiva LIKE @linea;
+        WHERE crce7_nombre_ LIKE @search 
+          AND crce7_lineaproductiva LIKE @linea
+          AND crce7_eliminado IS NULL;
 
         SELECT 
           p.*, 
@@ -141,7 +223,9 @@ exports.getPaginatedProducts = async (req, res) => {
         FROM crce7_t_productos p
         LEFT JOIN crce7_t_lineaproductiva lp
           ON p.crce7_lineaproductiva = lp.crce7_t_lineaproductivaid
-        WHERE p.crce7_nombre_ LIKE @search AND p.crce7_lineaproductiva LIKE @linea
+        WHERE p.crce7_nombre_ LIKE @search 
+          AND p.crce7_lineaproductiva LIKE @linea
+          AND p.crce7_eliminado IS NULL
         ORDER BY p.crce7_producto ASC, p.crce7_referencia ASC
         OFFSET ${offset} ROWS
         FETCH NEXT ${limit} ROWS ONLY;
@@ -149,8 +233,6 @@ exports.getPaginatedProducts = async (req, res) => {
 
     const total = result.recordsets[0][0].total;
     const data = result.recordsets[1];
-    console.log('✅ Datos obtenidos de SQL:', data);
-    console.log('🎯 Datos SQL obtenidos:', JSON.stringify(data, null, 2));
     res.json({ total, data });
   } catch (error) {
     console.error('❌ Error al obtener productos paginados:', error);

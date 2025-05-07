@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import ProductForm from './ProductForm.jsx';
 import { useProductsInfinite } from '../../hooks/useProductsInfinite.js';
 import ProductCard from './ProductCard.jsx';
-import { FaPlus, FaLink } from 'react-icons/fa';
+import { FaPlus, FaLink, FaTrash } from 'react-icons/fa';
 
 function ProductManager() {
   const [search, setSearch] = useState('');
@@ -41,6 +41,46 @@ function ProductManager() {
         icon={<FaLink />}
         label="Agregar Referencia"
         variant="secondary"
+      />
+      <Button
+        onClick={async () => {
+          if (!selectedProductId) return;
+
+          const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
+          if (!confirmDelete) return;
+
+          try {
+            const response = await fetch(`/api/products/${selectedProductId}`, {
+              method: 'DELETE'
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              alert(result.error || "❌ Error al eliminar.");
+            } else {
+              alert(result.message || "✅ Producto eliminado.");
+              setSelectedProductId(null);
+              window.location.reload();
+            }
+          } catch (err) {
+            alert("❌ Error al intentar eliminar el producto.");
+          }
+        }}
+        disabled={
+          !selectedProductId ||
+          parseInt(products.find(p => p.crce7_t_productosid === selectedProductId)?.crce7_inv) !== 1
+        }
+        title={
+          !selectedProductId
+            ? 'Selecciona un producto para eliminarlo'
+            : parseInt(products.find(p => p.crce7_t_productosid === selectedProductId)?.crce7_inv) !== 1
+            ? 'Solo se pueden eliminar productos que no sean padres'
+            : ''
+        }
+        icon={<FaTrash />}
+        label="Eliminar Producto"
+        variant="danger"
       />
       </div>
 
