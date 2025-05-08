@@ -41,3 +41,15 @@ Este documento describe los principales componentes de la interfaz en React.
   4. Si el producto es válido para eliminación, se marca como eliminado (`crce7_eliminado = GETDATE()`).
   5. Si es la última referencia de un grupo, el backend actualiza el producto padre para que `crce7_inv = 1`.
   6. La interfaz se recarga automáticamente para reflejar los cambios.
+
+### BadgeLabel
+
+- Componente visual reutilizable para mostrar etiquetas con color de fondo dinámico.
+- Se utiliza para representar:
+  - Línea productiva (`nombre_linea_productiva` + `color_linea_productiva`)
+  - Tipo de producto (`Tipo` + `Tipo_color`)
+- Recibe dos props:
+  - `text`: texto visible dentro del badge.
+  - `backgroundColor`: color de fondo del badge.
+- Calcula automáticamente el color del texto (negro o blanco) según el brillo del fondo para mantener la legibilidad.
+- Se usa dentro de `ProductCard` para renderizar uno o más badges alineados con la información visual del producto.

@@ -219,10 +219,14 @@ exports.getPaginatedProducts = async (req, res) => {
         SELECT 
           p.*, 
           lp.crce7_lineaproductiva AS nombre_linea_productiva,
-          lp.crce7_color AS color_linea_productiva
+          lp.crce7_color AS color_linea_productiva,
+          tt.Label AS Tipo,
+          tt.color AS Tipo_color
         FROM crce7_t_productos p
         LEFT JOIN crce7_t_lineaproductiva lp
           ON p.crce7_lineaproductiva = lp.crce7_t_lineaproductivaid
+        LEFT JOIN T_Tipo tt
+          ON p.crce7_tipo = tt.Value
         WHERE p.crce7_nombre_ LIKE @search 
           AND p.crce7_lineaproductiva LIKE @linea
           AND p.crce7_eliminado IS NULL
